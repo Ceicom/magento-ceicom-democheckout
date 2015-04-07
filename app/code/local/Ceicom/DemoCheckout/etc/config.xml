@@ -1,0 +1,40 @@
+<config>
+    <modules>
+        <Ceicom_DemoCheckout>
+            <version>0.1.0</version>
+        </Ceicom_DemoCheckout>
+    </modules>
+    <global>
+        <blocks>
+            <democheckout>
+                <class>Ceicom_DemoCheckout_Block</class>
+            </democheckout>
+            <checkout>
+                <rewrite>
+                    <onepage_payment_methods>Ceicom_DemoCheckout_Block_Methods</onepage_payment_methods>
+                </rewrite>
+            </checkout>
+        </blocks>
+        <models>
+            <democheckout>
+                <class>Ceicom_DemoCheckout_Model</class>
+            </democheckout>
+        </models>
+        <helpers>
+            <democheckout>
+                <class>Ceicom_DemoCheckout_Helper</class>
+            </democheckout>
+        </helpers>
+    </global>
+    <frontend>
+        <routers>
+            <checkout>
+                <args>
+                    <modules>
+                        <Ceicom_DemoCheckout before="Mage_Checkout">Ceicom_DemoCheckout_Checkout</Ceicom_DemoCheckout>
+                    </modules>
+                </args>
+            </checkout>
+        </routers>
+    </frontend>
+</config>

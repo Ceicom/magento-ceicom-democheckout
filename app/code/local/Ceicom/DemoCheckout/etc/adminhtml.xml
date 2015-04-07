@@ -1,0 +1,22 @@
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <democheckout translate="title" module="democheckout">
+                                        <title>Demo Checkout</title>
+                                        <sort_order>999</sort_order>
+                                    </democheckout>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

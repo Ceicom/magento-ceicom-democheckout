@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <ceicomall translate="label" module="democheckout">
+            <label>CEICOM Tecnologia Web</label>
+            <sort_order>300</sort_order>
+        </ceicomall>
+    </tabs>
+    <sections>
+        <democheckout translate="label" module="democheckout">
+            <label>Demo Checkout</label>
+            <tab>ceicomall</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>100</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <democheckout_options translate="label">
+                    <label>DemoCheckout Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <user_id translate="label">
+                            <label>Select Users</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>democheckout/Source_User</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </user_id>
+                        <message translate="label">
+                            <label>Message</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </message>
+                    </fields>
+                </democheckout_options>
+                <democheckout_payment>
+                    <label>DemoCheckout Payment Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <payment_methods translate="label">
+                            <label>Payment Methods</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <frontend_model>ceicom_demoCheckout_block_multiselectgroup</frontend_model>
+                            <source_model>democheckout/Source_User</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </payment_methods>
+                    </fields>
+                </democheckout_payment>
+            </groups>
+        </democheckout>
+    </sections>
+</config>

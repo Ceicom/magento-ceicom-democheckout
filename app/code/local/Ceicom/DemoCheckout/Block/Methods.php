@@ -29,10 +29,10 @@ class Ceicom_DemoCheckout_Block_Methods extends Mage_Checkout_Block_Onepage_Paym
 
     protected function methodIsValid($method)
     {
-        $userGroupId = Mage::getSingleton('customer/session')->getGroupId();
+        $userGroupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
         $validGroups = Mage::getStoreConfig("democheckout/democheckout_payment/method_{$method->getCode()}");
         $allisValid = in_array('', explode(',', $validGroups));
-        $userIsValid = in_array($userGroupId, $validGroups);
+        $userIsValid = in_array($userGroupId, explode(',', $validGroups));
 
         return ( $userIsValid || $allisValid );
     }

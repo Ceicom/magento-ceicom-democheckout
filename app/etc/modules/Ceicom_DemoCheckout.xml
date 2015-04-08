@@ -1,0 +1,8 @@
+<config>
+    <modules>
+        <Ceicom_DemoCheckout>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Ceicom_DemoCheckout>
+    </modules>
+</config>

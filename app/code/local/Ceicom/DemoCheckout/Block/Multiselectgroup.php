@@ -4,20 +4,26 @@ class Ceicom_DemoCheckout_Block_Multiselectgroup extends Mage_Adminhtml_Block_Sy
 
      protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
-        $this->setElement($multiselect);
         $paymentMethods = $this->getActivPaymentMethods();
         $elementHtml = '';
 
         foreach ($paymentMethods as $paymentCod => $payment) {
             $multiselect = new Varien_Data_Form_Element_Multiselect($element->getData());
-            $multiselect->setName("groups[democheckout_payment][fields][method_{$payment['value']}][value][]");
+            $input = new Varien_Data_Form_Element_Hidden($element->getData());
             $value = Mage::getStoreConfig("democheckout/democheckout_payment/method_{$payment['value']}");
+
+            $input->setName("groups[democheckout_payment][fields][method_{$payment['value']}][value]");
+            $multiselect->setName("groups[democheckout_payment][fields][method_{$payment['value']}][value][]");
             $multiselect->setValue($value);
+            $multiselect->setSelected($value);
             $multiselect->setForm($element->getForm());
-            $elementHtml .= sprintf(
+            $input->setForm($element->getForm());
+
+            $elementHtml .= $input->getElementHtml() . sprintf(
                 '<br><label for="%s"><b>%s</b></label><br>',
                 $element->getHtmlId(), $payment['label']
             ) . $multiselect->getElementHtml();
+
         }
 
         return $elementHtml;

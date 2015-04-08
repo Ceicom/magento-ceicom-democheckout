@@ -14,10 +14,9 @@ class Ceicom_DemoCheckout_Block_Methods extends Mage_Checkout_Block_Onepage_Paym
             $methods = array();
 
             foreach ($this->helper('payment')->getStoreMethods($store, $quote) as $method) {
-                $valueFuck = Mage::getStoreConfig("democheckout/democheckout_payment/method_{$method->getCode()}");
-                $valuesHaha = explode(',',$valueFuck);
+                $usersEnabled = explode(',', Mage::getStoreConfig("democheckout/democheckout_payment/method_{$method->getCode()}"));
 
-                if (in_array($user_id, $valuesHaha)) {
+                if (in_array($user_id, $usersEnabled)) {
                     if ($this->_canUseMethod($method) && $method->isApplicableToQuote(
                         $quote,
                         Mage_Payment_Model_Method_Abstract::CHECK_ZERO_TOTAL

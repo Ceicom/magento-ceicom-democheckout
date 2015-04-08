@@ -1,7 +1,7 @@
 <config>
     <modules>
         <Ceicom_DemoCheckout>
-            <version>0.1.1</version>
+            <version>0.1.2</version>
         </Ceicom_DemoCheckout>
     </modules>
     <global>

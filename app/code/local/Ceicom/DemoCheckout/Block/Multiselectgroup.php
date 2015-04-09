@@ -4,6 +4,7 @@ class Ceicom_DemoCheckout_Block_Multiselectgroup extends Mage_Adminhtml_Block_Sy
 
      protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
+
         $paymentMethods = $this->getActivPaymentMethods();
         $elementHtml = '';
 
@@ -33,13 +34,17 @@ class Ceicom_DemoCheckout_Block_Multiselectgroup extends Mage_Adminhtml_Block_Sy
     {
 
         $payments = Mage::getSingleton('payment/config')->getActiveMethods();
+        $quote = Mage::getSingleton('checkout/session')->getQuote();
+        $store = $quote ? $quote->getStoreId() : null;
 
-        foreach ($payments as $paymentCode=>$paymentModel) {
-            $paymentTitle = Mage::getStoreConfig('payment/'.$paymentCode.'/title');
-            $methods[$paymentCode] = array(
-                'label'   => $paymentTitle,
-                'value' => $paymentCode,
-            );
+        foreach (Mage::helper('payment')->getStoreMethods($store, $quote) as $method) {
+            if ( $method->canUseCheckout() && $method->getCode() != 'free') {
+                $paymentTitle = Mage::getStoreConfig("payment/{$method->getCode()}/title");
+                $methods[$method->getCode()] = array(
+                    'label'   => $paymentTitle,
+                    'value' => $method->getCode(),
+                );
+            }
         }
 
         return $methods;

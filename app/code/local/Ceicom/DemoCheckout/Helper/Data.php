@@ -1,23 +1,32 @@
 <?php
 class Ceicom_DemoCheckout_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    public function getActivePaymentMethods()
+    {        
+        foreach (Mage::getSingleton('payment/config')->getActiveMethods() as $paymentMethod) {
+            if ($paymentMethod->canUseCheckout()) {
+                $activePaymentMethods[$paymentMethod->getCode()] = $paymentMethod->getTitle();
+            }
+        }
 
-    const XML_USER_ID = 'democheckout/democheckout_options/user_id';
-    const XML_MESSAGE = 'democheckout/democheckout_options/message';
-
-    public function conf($code,$store = null)
-    {
-        return Mage::getStoreConfig($code, $store);
+        return $activePaymentMethods;
     }
 
-    public function getMessage()
+    public function getPaymentMethodsByCustomerGroup()
     {
-        return $this->conf(self::XML_MESSAGE);
+        $activePaymentMethods = $this->getActivePaymentMethods();
+
+        foreach ($activePaymentMethods as $paymentMethodCode => $paymentMethodTitle) {
+            $paymentMethodsByCustomerGroup[$paymentMethodCode] = $this->getConfig('payment_methods_by_customer_group/' . $paymentMethodCode);
+        }
+
+        return $paymentMethodsByCustomerGroup;
     }
 
-    public function getUsesId()
+    public static function getConfig($path)
     {
-        return $this->conf(self::XML_USER_ID);
+        if ($path) {
+            return Mage::getStoreConfig('ceicom_democheckout/' . $path);
+        }
     }
-
 }

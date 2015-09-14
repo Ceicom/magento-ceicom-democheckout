@@ -1,40 +1,96 @@
+<?xml version="1.0"?>
 <config>
     <modules>
         <Ceicom_DemoCheckout>
-            <version>0.1.5</version>
+            <version>0.2.0</version>
         </Ceicom_DemoCheckout>
     </modules>
-    <global>
+    <global>        
         <blocks>
-            <democheckout>
+            <ceicom_democheckout>
                 <class>Ceicom_DemoCheckout_Block</class>
-            </democheckout>
-            <checkout>
-                <rewrite>
-                    <onepage_payment_methods>Ceicom_DemoCheckout_Block_Methods</onepage_payment_methods>
-                </rewrite>
-            </checkout>
+            </ceicom_democheckout>
         </blocks>
         <models>
-            <democheckout>
+            <ceicom_democheckout>
                 <class>Ceicom_DemoCheckout_Model</class>
-            </democheckout>
-        </models>
+            </ceicom_democheckout>
+        </models>        
         <helpers>
-            <democheckout>
+            <ceicom_democheckout>
                 <class>Ceicom_DemoCheckout_Helper</class>
-            </democheckout>
+            </ceicom_democheckout>
         </helpers>
     </global>
     <frontend>
-        <routers>
-            <checkout>
-                <args>
-                    <modules>
-                        <Ceicom_DemoCheckout before="Mage_Checkout">Ceicom_DemoCheckout_Checkout</Ceicom_DemoCheckout>
-                    </modules>
-                </args>
-            </checkout>
-        </routers>
+        <events>
+            <payment_method_is_active>
+                <observers>
+                    <ceicom_democheckout_payment_method_is_active>
+                        <type>singleton</type>
+                        <class>Ceicom_DemoCheckout_Model_Observer</class>
+                        <method>paymentMethodIsActive</method>
+                    </ceicom_democheckout_payment_method_is_active>
+                </observers>
+            </payment_method_is_active>            
+            <sales_model_service_quote_submit_before>
+                <observers>
+                    <ceicom_democheckout_customer_is_able_to_place_order>
+                        <type>singleton</type>
+                        <class>Ceicom_DemoCheckout_Model_Observer</class>
+                        <method>customerIsAbleToPlaceOrder</method>
+                    </ceicom_democheckout_customer_is_able_to_place_order>
+                </observers>
+            </sales_model_service_quote_submit_before>
+        </events>
+        <translate>
+            <modules>
+                <Ceicom_DemoCheckout>
+                    <files>
+                        <default>Ceicom_DemoCheckout.csv</default>
+                    </files>
+                </Ceicom_DemoCheckout>
+            </modules>
+        </translate>
     </frontend>
+    <default>
+        <ceicom_democheckout>
+            <general>
+                <message>Sorry, but you can't place an order.</message>
+            </general>
+        </ceicom_democheckout>
+    </default>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Ceicom_DemoCheckout>
+                    <files>
+                        <default>Ceicom_DemoCheckout.csv</default>
+                    </files>
+                </Ceicom_DemoCheckout>
+            </modules>
+        </translate>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <ceicom_democheckout>
+                                            <title>Ceicom Demo Checkout</title>
+                                        </ceicom_democheckout>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
 </config>

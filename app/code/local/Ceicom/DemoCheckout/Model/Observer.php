@@ -36,10 +36,10 @@ class Ceicom_DemoCheckout_Model_Observer
 	protected function _getPaymentMethodsByCustomerGroup()
 	{
 		if (empty($this->_paymentMethodsByCustomerGroup)) {
-			$_paymentMethodsByCustomerGroup = $this->_getHelper()->getPaymentMethodsByCustomerGroup();
+			$this->_paymentMethodsByCustomerGroup = $this->_getHelper()->getPaymentMethodsByCustomerGroup();
 		}
 
-		return $_paymentMethodsByCustomerGroup;
+		return $this->_paymentMethodsByCustomerGroup;
 	}
 
 	protected function _getHelper()
